@@ -1,0 +1,202 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.app {
+  padding: 40px;
+}
+
+/* .node {
+  margin-left: 30px;
+  position: relative;
+} */
+
+/* .node-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+} */
+
+.node-input {
+  width: 120px;
+  padding: 6px 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.add-btn {
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px dashed #3b82f6;
+  background: transparent;
+  color: #3b82f6;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Parent vertical line */
+/* .children {
+  position: relative;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px dashed #d1d5db;
+} */
+
+/* Node row */
+/* .node-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+} */
+
+/* Horizontal connector */
+.connector {
+  position: absolute;
+  left: -20px; /* SAME as children padding-left */
+  top: 50%;
+  width: 20px;
+  border-top: 1px dashed #d1d5db;
+  transform: translateY(-50%);
+}
+
+/* Page wrapper */
+.page {
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.collapse {
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Dashed add button */
+.add-root {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed #3b82f6;
+  background: transparent;
+  color: #3b82f6;
+  font-size: 20px;
+  font-weight: 600;
+
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Right actions */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn.outline {
+  background: transparent;
+  border: 1px solid #cbd5f5;
+  color: #3b82f6;
+}
+
+.btn.primary {
+  background: #3b82f6;
+  border: none;
+  color: #ffffff;
+}
+
+/* Editor container */
+.editor {
+  padding: 30px;
+}
+
+/* Node container */
+.node {
+  position: relative;
+  margin-left: 32px;
+}
+
+.node.root {
+  margin-left: 0;
+}
+
+/* Children container creates the vertical line */
+.children {
+  position: relative;
+  margin-left: 20px;
+  padding-left: 20px;
+}
+
+/* Vertical line */
+.children::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed #d1d5db;
+}
+
+/* Node row */
+.node-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+/* Horizontal line (CONNECTS EXACTLY to vertical) */
+.h-line {
+  position: absolute;
+  left: -20px;           /* SAME as children padding-left */
+  width: 20px;
+  top: 50%;
+  border-top: 1px dashed #d1d5db;
+  transform: translateY(-50%);
+}

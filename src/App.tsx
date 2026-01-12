@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { PortNodeItem } from "./components/PortNode";
+import { initialTree } from "./data/tree";
+import type { PortNode } from "./types/PortNode";
+import "./styles.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [tree, setTree] = useState<PortNode>(initialTree);
+
+  const addRootNode = () => {
+    setTree({
+      ...tree,
+      children: [
+        ...tree.children,
+        { id: crypto.randomUUID(), value: "", children: [] },
+      ],
+    });
+  };
+
+  const addNode = (id: string) => {
+    const add = (node: PortNode): PortNode => {
+      if (node.id === id) {
+        return {
+          ...node,
+          children: [
+            ...node.children,
+            { id: crypto.randomUUID(), value: "", children: [] },
+          ],
+        };
+      }
+      return { ...node, children: node.children.map(add) };
+    };
+    setTree(add(tree));
+  };
+
+  const updateValue = (id: string, value: string) => {
+    const update = (node: PortNode): PortNode => {
+      if (node.id === id) return { ...node, value };
+      return { ...node, children: node.children.map(update) };
+    };
+    setTree(update(tree));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="page">
+      {/* Header */}
+      <div className="header">
+        <span className="title">Port Template</span>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
 
-export default App
+      {/* Toolbar */}
+      <div className="toolbar">
+        <button className="add-root" onClick={addRootNode}>
+          +
+        </button>
+
+        <div className="actions">
+          <button className="btn outline">Back</button>
+          <button className="btn primary">Save</button>
+        </div>
+      </div>
+
+      {/* Editor */}
+      <div className="editor">
+        <PortNodeItem node={tree} onAdd={addNode} onChange={updateValue} />
+      </div>
+    </div>
+  );
+}
