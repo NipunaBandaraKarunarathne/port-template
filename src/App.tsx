@@ -41,6 +41,30 @@ export default function App() {
     setTree(update(tree));
   };
 
+  const deleteNode = (id: string) => {
+    const remove = (node: PortNode): PortNode | null => {
+      if (node.id === id) return null;
+
+      return {
+        ...node,
+        children: node.children.map(remove).filter(Boolean) as PortNode[],
+      };
+    };
+
+    setTree(remove(tree)!);
+  };
+
+  const toggleReadOnly = (id: string) => {
+    const toggle = (node: PortNode): PortNode => {
+      if (node.id === id) {
+        return { ...node, readOnly: !node.readOnly };
+      }
+      return { ...node, children: node.children.map(toggle) };
+    };
+
+    setTree(toggle(tree));
+  };
+
   return (
     <div className="page">
       {/* Header */}
@@ -55,14 +79,20 @@ export default function App() {
         </button>
 
         <div className="actions">
-          <button className="btn outline">Back</button>
+         
           <button className="btn primary">Save</button>
         </div>
       </div>
 
       {/* Editor */}
       <div className="editor">
-        <PortNodeItem node={tree} onAdd={addNode} onChange={updateValue} />
+        <PortNodeItem
+          node={tree}
+          onAdd={addNode}
+          onChange={updateValue}
+          onDelete={deleteNode}
+          onToggleReadOnly={toggleReadOnly}
+        />
       </div>
     </div>
   );
